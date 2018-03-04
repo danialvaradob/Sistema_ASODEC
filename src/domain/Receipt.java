@@ -18,10 +18,10 @@ public class Receipt {
     private boolean isPaid;
     private float paidAmount;
 
-    public Receipt(boolean _isPaid, float _paidAmount) {
+    public Receipt() {
         receiptID++;
-        this.isPaid = _isPaid;
-        this.paidAmount = _paidAmount;
+        this.isPaid = false;
+        this.paidAmount = 0;
     }
     
     public void addLine(ReceiptLine _newLine) {
@@ -45,6 +45,52 @@ public class Receipt {
         //todo
         return " ";
     
+    }
+    
+    
+    /*
+        def addPaidAmount(self, amount):
+
+        self.paidAmount = amount
+
+    
+
+    def getChange(self):
+
+        return self.paidAmount - self.getTotal()
+    */
+
+    public List<ReceiptLine> getReceiptLines() {
+        return receiptLines;
+    }
+
+    
+
+    public static int getReceiptID() {
+        return receiptID;
+    }
+
+    public static void setReceiptID(int receiptID) {
+        Receipt.receiptID = receiptID;
+    }
+
+    public boolean isIsPaid() {
+        return isPaid;
+    }
+
+    public void setIsPaid(boolean isPaid) {
+        this.isPaid = isPaid;
+    }
+
+    public float getPaidAmount() {
+        return paidAmount;
+    }
+
+    public void setPaidAmount(float paidAmount) {
+        this.paidAmount = paidAmount;
+    }
+    public float getChange() {
+        return this.paidAmount - this.getTotal();
     }
     
     

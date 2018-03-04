@@ -14,21 +14,28 @@ import java.util.List;
  */
 public class SystemFact {
     private List<Product> products = new ArrayList<>();
+    private List<Receipt> receiptHistory = new ArrayList<>();
     
     public SystemFact() {};
     
     public void addProduct(Product _product) {
         products.add(_product);
     }
-    public String getProduct(int _code) {
-        String info = "No existe el producto";
+    public Product getProduct(int _code) {
+        Product p = null;
         for (int i = 0; i < products.size();i++) {
             if (products.get(i).getID() == _code) {
-                info = products.get(i).toString();
+                p = products.get(i);
             }
         }
-        return info;
+        return p;
+    
     } 
+    
+    
+    public void addReceipt(Receipt _receipt) {
+        this.receiptHistory.add(_receipt);
+    }
     
     
 }
