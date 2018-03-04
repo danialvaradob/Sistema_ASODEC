@@ -41,25 +41,6 @@ public class Receipt {
         return total;
     }
     
-    public String printReceipt() {
-        //todo
-        return " ";
-    
-    }
-    
-    
-    /*
-        def addPaidAmount(self, amount):
-
-        self.paidAmount = amount
-
-    
-
-    def getChange(self):
-
-        return self.paidAmount - self.getTotal()
-    */
-
     public List<ReceiptLine> getReceiptLines() {
         return receiptLines;
     }
@@ -94,9 +75,25 @@ public class Receipt {
     }
     
     
+    public String printReceipt() {
+    
+    String receipt = "\n**************************************************"
+            + "\n**********************RECEIPT*********************"
+            + "**************************************************"
+            + "\nReceipt number:\n " +  Integer.toString(receiptID)
+            + "LineNumber  Name   Quantity"
+            ;
+    for (int i =0 ; i < receiptLines.size();i++) {
+        ReceiptLine rl = receiptLines.get(i);
+        receipt += "\n" + Integer.toString(i+1) +"  " 
+                + rl.getProduct().getName() +  " "
+                + Float.toString(rl.getProduct().getPrice()) + " * "
+                + Integer.toString(rl.getQuantity());
+    }
+    return receipt;
     
     
     
-    
+    }
     
 }
