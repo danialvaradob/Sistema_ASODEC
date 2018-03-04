@@ -43,5 +43,11 @@ public class Product {
     public void setPrice(float _price) {
         this.price = _price;
     }
+
+    @Override
+    public String toString() {
+        return  "Codigo=" + ID + ", Nombre=" + name + ", Precio=" + price;
+    }
+    
     
 }
