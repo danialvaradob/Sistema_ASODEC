@@ -23,7 +23,7 @@ public class facturationMainFrame extends javax.swing.JFrame {
      * 
      */
     
-    private SystemFact sys = new SystemFact();
+    private static SystemFact sys = new SystemFact();
     private DefaultListModel listModel = new DefaultListModel();
     private int modelSize = 0;
     private Receipt receipt = new Receipt();
@@ -32,6 +32,7 @@ public class facturationMainFrame extends javax.swing.JFrame {
 
     public facturationMainFrame() {
         initComponents();
+        /*
         sys.addReceipt(receipt);
         Product p1 = new Product(1234,"Bebida",2500);
         Product p2 = new Product(1235,"Sandwich",2500);
@@ -44,6 +45,22 @@ public class facturationMainFrame extends javax.swing.JFrame {
         sys.addProduct(p3);
         sys.addProduct(p4);
         
+        Receipt r = new Receipt();
+        Receipt r2 = new Receipt();
+        ReceiptLine rl = new ReceiptLine(1, p1, 2);
+        ReceiptLine rl1 = new ReceiptLine(2, p2, 1);
+        ReceiptLine rl2 = new ReceiptLine(3, p3, 3);
+        
+        r.addLine(rl);
+        r.addLine(rl1);
+        r.addLine(rl2);
+        
+        r2.addLine(rl2);*/
+        
+    }
+    
+    public static SystemFact getSystemFact(){
+        return sys;
     }
 
     /**
@@ -68,13 +85,19 @@ public class facturationMainFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         printReceiptButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        qtyTxt = new javax.swing.JTextField();
         changeTextEdit = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         receiptTextArea = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         productScanButton.setText("Escanear");
         productScanButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -83,6 +106,7 @@ public class facturationMainFrame extends javax.swing.JFrame {
             }
         });
 
+        productCodeTextEdit.setText("1234");
         productCodeTextEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 productCodeTextEditActionPerformed(evt);
@@ -123,6 +147,8 @@ public class facturationMainFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Cantidad");
 
+        qtyTxt.setText("1");
+
         changeTextEdit.setEditable(false);
 
         jLabel5.setText("Cambio:");
@@ -131,28 +157,14 @@ public class facturationMainFrame extends javax.swing.JFrame {
         receiptTextArea.setRows(5);
         jScrollPane2.setViewportView(receiptTextArea);
 
+        jLabel6.setText("[Códigos: 1234, 1235, 1345, 2345]");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(productCodeTextEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(productScanButton)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(111, 111, 111)
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,14 +185,37 @@ public class facturationMainFrame extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(productCodeTextEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(productScanButton)
+                                    .addComponent(qtyTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(111, 111, 111)
+                                .addComponent(jRadioButton1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel6))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
@@ -209,7 +244,7 @@ public class facturationMainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(qtyTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -227,14 +262,15 @@ public class facturationMainFrame extends javax.swing.JFrame {
 
     private void productScanButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productScanButtonMouseClicked
         // TODO add your handling code here:
+        
         int code = Integer.parseInt(this.productCodeTextEdit.getText());
         Product p = sys.getProduct(code);
         String info = "";
         if (p == null) {info  = "No existe el producto";}
         else  {
             info = p.toString(); 
-            this.receipt.addLine(new ReceiptLine(rLine,p,(this.jTextField1.getText() == "") ? 
-                    0 : Integer.getInteger(this.jTextField1.getText()) ));
+            this.receipt.addLine(new ReceiptLine(rLine,p,(this.qtyTxt.getText().equals("")) ? 
+                    0 : Integer.parseInt(this.qtyTxt.getText()) ));
             this.rLine++;
             // (a > b) ? a : b; is an expression which returns one of two values, a or b. 
             //The condition, (a > b), is tested. If it is true the first value, a, is returned. 
@@ -257,7 +293,8 @@ public class facturationMainFrame extends javax.swing.JFrame {
     private void paidAmountButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paidAmountButtonMouseClicked
         // TODO add your handling code here:
         this.receipt.setIsPaid(true);
-        this.receipt.setPaidAmount(Integer.getInteger(this.paidAmountTextEdit.getText()));
+        
+        this.receipt.setPaidAmount(Integer.parseInt(this.paidAmountTextEdit.getText()));
         float change = receipt.getChange();
         this.changeTextEdit.setText(Float.toString(change));
         
@@ -268,6 +305,10 @@ public class facturationMainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.receiptTextArea.setText(receipt.printReceipt());
     }//GEN-LAST:event_printReceiptButtonMouseEntered
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        appMainFrame.main(null);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -312,16 +353,17 @@ public class facturationMainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton paidAmountButton;
     private javax.swing.JTextField paidAmountTextEdit;
     private javax.swing.JButton printReceiptButton;
     private javax.swing.JTextField productCodeTextEdit;
     private javax.swing.JButton productScanButton;
+    private javax.swing.JTextField qtyTxt;
     private javax.swing.JTextArea receiptTextArea;
     // End of variables declaration//GEN-END:variables
 }

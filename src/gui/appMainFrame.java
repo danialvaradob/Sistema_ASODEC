@@ -5,6 +5,10 @@
  */
 package gui;
 
+import domain.Product;
+import domain.Receipt;
+import domain.ReceiptLine;
+
 /**
  *
  * @author danielalvarado
@@ -16,6 +20,32 @@ public class appMainFrame extends javax.swing.JFrame {
      */
     public appMainFrame() {
         initComponents();
+        domain.SystemFact sys = facturationMainFrame.getSystemFact();
+        
+        Product p1 = new Product(1234,"Bebida",2500);
+        Product p2 = new Product(1235,"Sandwich",2500);
+        Product p3 = new Product(1345,"Agua",2500);
+        Product p4 = new Product(2345,"Meneitos",2500);
+        
+        
+        sys.addProduct(p1);
+        sys.addProduct(p2);
+        sys.addProduct(p3);
+        sys.addProduct(p4);
+        
+        Receipt r = new Receipt();
+        Receipt r2 = new Receipt();
+        ReceiptLine rl = new ReceiptLine(1, p1, 2);
+        ReceiptLine rl1 = new ReceiptLine(2, p2, 1);
+        ReceiptLine rl2 = new ReceiptLine(3, p3, 3);
+        
+        r.addLine(rl);
+        r.addLine(rl1);
+        r.addLine(rl2);
+        
+        r2.addLine(rl2);
+        sys.addReceipt(r);
+        sys.addReceipt(r2);
     }
 
     /**
@@ -28,6 +58,8 @@ public class appMainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        listarBTN = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -38,21 +70,42 @@ public class appMainFrame extends javax.swing.JFrame {
             }
         });
 
+        listarBTN.setText("Listar ventas");
+        listarBTN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listarBTNMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setText("Sistema de facturación");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jButton1)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(listarBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel1)))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(listarBTN)
+                .addGap(111, 111, 111))
         );
 
         pack();
@@ -64,6 +117,10 @@ public class appMainFrame extends javax.swing.JFrame {
         new facturationMainFrame().setVisible(true);
         
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void listarBTNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listarBTNMouseClicked
+        reportOptionsFrame.main(null);
+    }//GEN-LAST:event_listarBTNMouseClicked
 
     /**
      * @param args the command line arguments
@@ -102,5 +159,7 @@ public class appMainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton listarBTN;
     // End of variables declaration//GEN-END:variables
 }

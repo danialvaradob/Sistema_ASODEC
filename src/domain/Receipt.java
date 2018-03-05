@@ -6,6 +6,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,8 +18,10 @@ public class Receipt {
     public static int receiptID;
     private boolean isPaid;
     private float paidAmount;
+    private Date date;
 
     public Receipt() {
+        date = new Date();
         receiptID++;
         this.isPaid = false;
         this.paidAmount = 0;
@@ -26,6 +29,10 @@ public class Receipt {
     
     public void addLine(ReceiptLine _newLine) {
         this.receiptLines.add(_newLine);
+    }
+    
+    public Date getDate(){
+        return date;
     }
     
     public float getTotal() {
@@ -47,7 +54,7 @@ public class Receipt {
 
     
 
-    public static int getReceiptID() {
+    public int getReceiptID() {
         return receiptID;
     }
 

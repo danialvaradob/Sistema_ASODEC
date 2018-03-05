@@ -5,7 +5,9 @@
  */
 package domain;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +37,48 @@ public class SystemFact {
     
     public void addReceipt(Receipt _receipt) {
         this.receiptHistory.add(_receipt);
+    }
+    
+    public List<Receipt> getDateSales(Date selectedDate){
+        List<Receipt> sales = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        //Date date = new Date();
+        String time = "";
+        String stime = "";
+        
+        for (int i = 0; i < receiptHistory.size();i++) {
+            Date dt = receiptHistory.get(i).getDate();
+            time = sdf.format(dt);
+            stime = sdf.format(selectedDate);
+
+            if (time.equals(stime)) {
+                sales.add(receiptHistory.get(i));
+            }
+
+        }      
+        return sales;
+    }
+    
+    public List<Receipt> getDateSales(Date selectedDate, Date endDate){
+        List<Receipt> sales = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        //Date date = new Date();
+        
+        String time = "";
+        String stime = "";
+        
+        for (int i = 0; i < receiptHistory.size();i++) {
+            Date dt = receiptHistory.get(i).getDate();
+            time = sdf.format(dt);
+            stime = sdf.format(selectedDate);
+           
+            if (receiptHistory.get(i).getDate().after(selectedDate) && 
+                    receiptHistory.get(i).getDate().before(endDate)) {
+                sales.add(receiptHistory.get(i));
+            }
+            //sales.add(receiptHistory.get(i));
+        }      
+        return sales;
     }
     
     
